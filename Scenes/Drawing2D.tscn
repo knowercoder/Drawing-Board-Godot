@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://u0ikby08i8u8"]
+
+[ext_resource type="Texture2D" uid="uid://comav3qpb8gl3" path="res://icon.svg" id="1_mgm5v"]
+[ext_resource type="Shader" path="res://Shaders/DrawingBoard.gdshader" id="1_uhrtv"]
+[ext_resource type="Texture2D" uid="uid://dlikvh01x2ms2" path="res://Textures/white.png" id="2_c3e8q"]
+[ext_resource type="Script" path="res://Scripts/MouseDraw.gd" id="4_fcpia"]
+[ext_resource type="Shader" path="res://Shaders/DrawingBuffer.gdshader" id="5_tfvv0"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_blspf"]
+viewport_path = NodePath("BufferViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0j37n"]
+resource_local_to_scene = true
+shader = ExtResource("1_uhrtv")
+shader_parameter/_color = Color(0.20678, 0.839988, 5.39064e-06, 1)
+shader_parameter/_mainTex = ExtResource("2_c3e8q")
+shader_parameter/_bufferTex = SubResource("ViewportTexture_blspf")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yhsro"]
+viewport_path = NodePath("SecondViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wxrf"]
+resource_local_to_scene = true
+shader = ExtResource("5_tfvv0")
+shader_parameter/_color = Color(0, 0, 0, 1)
+shader_parameter/_width = 3.0
+shader_parameter/_mousePos = null
+shader_parameter/_prevMousePos = null
+shader_parameter/_bufferTex = SubResource("ViewportTexture_yhsro")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cvc1v"]
+viewport_path = NodePath("BufferViewport")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_0j37n")
+offset_right = 1153.0
+offset_bottom = 651.0
+texture = ExtResource("1_mgm5v")
+script = ExtResource("4_fcpia")
+
+[node name="BufferViewport" type="SubViewport" parent="."]
+disable_3d = true
+size = Vector2i(1152, 648)
+
+[node name="ColorRect" type="ColorRect" parent="BufferViewport"]
+material = SubResource("ShaderMaterial_6wxrf")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SecondViewport" type="SubViewport" parent="."]
+disable_3d = true
+size = Vector2i(1152, 648)
+
+[node name="TextureRect" type="TextureRect" parent="SecondViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_cvc1v")
