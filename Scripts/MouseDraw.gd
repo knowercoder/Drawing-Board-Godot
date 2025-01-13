@@ -8,7 +8,7 @@ var mousePos = Vector2(-1000, 0)
 func _ready():	
 	bufferRectMaterial = $"../BufferViewport/ColorRect".material	
 	
-func _physics_process(delta):	
+func _process(delta):	
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):		
 		mousePos = get_viewport().get_mouse_position()
