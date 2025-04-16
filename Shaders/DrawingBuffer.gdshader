@@ -1,6 +1,5 @@
 shader_type canvas_item;
 
-uniform sampler2D _bufferTex;
 uniform vec4 _color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 uniform float _width = 3.0;
 uniform vec2 _mousePos;
@@ -20,7 +19,6 @@ float distanceToSegment( vec2 a, vec2 b, vec2 p )
 }
 
 void fragment() {
-	vec4 bufferColor = texture(_bufferTex, UV);
 
 	vec4 mousePos = vec4(_mousePos, 0.0, 1.0);
     vec4 prevMousePos = vec4(_prevMousePos, 0.0, 1.0);
@@ -35,7 +33,7 @@ void fragment() {
     }
 
     linevalue = clamp(linevalue, 0.0, 1.0);
-    vec4 outColor = mix(bufferColor, vec4(1, 1, 1, 1), linevalue);
+	vec4 outColor = vec4(linevalue);
 
 	COLOR = outColor;
 }
