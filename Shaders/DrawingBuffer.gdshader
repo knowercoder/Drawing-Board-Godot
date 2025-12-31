@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform vec4 _color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform vec4 _inkColor : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 uniform float _width = 3.0;
 uniform vec2 _mousePos;
 uniform vec2 _prevMousePos;
@@ -33,7 +33,7 @@ void fragment() {
     }
 
     linevalue = clamp(linevalue, 0.0, 1.0);
-	vec4 outColor = vec4(linevalue);
+	vec4 outColor = vec4(_inkColor.rgb * linevalue, linevalue);
 
 	COLOR = outColor;
 }
